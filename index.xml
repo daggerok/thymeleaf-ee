@@ -4,7 +4,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
 <info>
 <title>{root-project-name} ({project-version})</title>
-<date>2018-06-27 01:14:38 UTC</date>
+<date>2018-06-27 01:25:17 UTC</date>
 <author>
 <personname>
 <firstname>Maksim</firstname>
@@ -16,7 +16,7 @@
 <revhistory>
 <revision>
 <revnumber>{project-version}</revnumber>
-<date>2018-06-27 01:14:38 UTC</date>
+<date>2018-06-27 01:25:17 UTC</date>
 <authorinitials>MK</authorinitials>
 </revision>
 </revhistory>
@@ -51,14 +51,6 @@ yo jvm -t java-ee -n thymeleaf-ee</programlisting>
 <title>beans.xml</title>
 <para>
 <programlisting language="xml" linenumbering="unnumbered">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!-- CDI 1.1 webapp/WEB-INF/beans.xml --&gt;
-&lt;!-- J2EE 1.2: http://www.oracle.com/webfolder/technetwork/jsc/j2ee/dtds/index.html --&gt;
-&lt;!-- J2EE 1.3: http://www.oracle.com/webfolder/technetwork/jsc/dtd/index.html --&gt;
-&lt;!-- J2EE 1.4: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/j2ee/index.html --&gt;
-&lt;!-- Java EE 5: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#5 --&gt;
-&lt;!-- Java EE 6: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#6 --&gt;
-&lt;!-- Java EE 7: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#7 --&gt;
-&lt;!-- Java EE 8: http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/index.html#8 --&gt;
 &lt;beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
@@ -86,12 +78,6 @@ yo jvm -t java-ee -n thymeleaf-ee</programlisting>
       exclude group: 'org.thymeleaf', module: 'thymeleaf'
     }
     implementation 'org.thymeleaf:thymeleaf:3.0.9.RELEASE'
-    /*
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.1.RELEASE',
-        'org.thymeleaf.extras:thymeleaf-extras-tiles2:2.1.1.RELEASE',
-        'org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.2.RELEASE'
-    testImplementation 'org.thymeleaf:thymeleaf-testing:3.0.3.RELEASE'
-    */
   }
 }</programlisting>
 </para>
