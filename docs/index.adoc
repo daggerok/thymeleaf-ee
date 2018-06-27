@@ -1,0 +1,111 @@
+= {root-project-name} ({project-version})
+////
+image:https://travis-ci.org/daggerok/root-project-name.svg?branch=master["Build Status", link=github-url]
+image:https://gitlab.com/daggerok/root-project-name/badges/master/build.svg["Build Status", link=gitlab-url]
+image:https://img.shields.io/bitbucket/pipelines/daggerok/root-project-name.svg["Build Status", link=bitbucket-url]
+////
+Maksim Kostromin <daggerok@gmail.com>
+{docdatetime}
+:doctype: book
+:toc: left
+:toclevels: 4
+:source-highlighter: prettify
+:numbered:
+:icons: font
+:hide-uri-scheme:
+:revnumber: {project-version}
+:example-caption!:
+
+Travis CI status:
+image:https://travis-ci.org/daggerok/{root-project-name}.svg?branch=master["Build Status", link={github-url}]
+
+////
+GitLab CI status:
+image:https://gitlab.com/daggerok/{root-project-name}/badges/master/build.svg["Build Status", link={gitlab-url}]
+
+BitBucket CI status:
+image:https://img.shields.io/bitbucket/pipelines/daggerok/{root-project-name}.svg["Build Status", link={bitbucket-url}]
+////
+
+== Introduction
+
+include::../README.adoc[tags=content]
+
+== Implementation
+
+=== create Java EE project
+
+.I'm using my yo `generator-jvm` generator package (type: `java-ee`, name `thymeleaf-ee`):
+[source,bash]
+----
+npm i -g yo generator generator-jvm
+yo jvm -t java-ee -n thymeleaf-ee
+----
+
+.beans.xml
+[source,xml]
+----
+include::../src/main/webapp/WEB-INF/beans.xml[]
+----
+
+=== add thymeleaf and mvc 1.0 spec dependencies
+
+.maven
+[source,xml]
+----
+include::../pom.xml[tags=dependencies]
+----
+
+.gardle
+[source,groovy]
+----
+include::../gradle/java.gradle[tags=dependencies]
+----
+
+=== configure thymeleaf
+
+.configure Thymeleaf view resolver
+[source,java]
+----
+include::../src/main/java/daggerok/mvc/ThymeleafViewEngine.java[tags=content]
+----
+
+=== create MVC controller
+
+.resteasy controller
+[source,java]
+----
+include::../src/main/java/daggerok/mvc/IndexPage.java[tags=content]
+----
+
+=== add default (basic) pages layout
+
+.Thymeleaf default layout template in `src/main/resources/webapp/WEB-INF/layouts/default.html` file:
+[source,html]
+----
+include::../src/main/webapp/WEB-INF/layouts/default.html[]
+----
+
+=== and finally create view for index page
+
+.Thymeleaf index view template (file `src/main/resources/webapp/WEB-INF/layouts/index.html`):
+[source,html]
+----
+include::../src/main/webapp/WEB-INF/layouts/index.html[]
+----
+
+== Links
+
+ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
+- link:{github-url}[GitHub repo]
+- link:https://daggerok.github.io/{root-project-name}[GitHub pages]
+////
+- link:{gitlab-url}[GitLab repo]
+- link:https://daggerok.gitlab.io/{root-project-name}[GitLab pages]
+- link:{bitbucket-url}[BitBucket repo]
+////
+
+== Other links
+
+- link:https://dzone.com/articles/thymeleaf-with-javaee-8[DZone: Thymeleaf With JavaEE 8 article]
+- link:https://www.mvc-spec.org/ozark/docs/install-javaee.html[JSR 371: Model-View-Controller Specification]

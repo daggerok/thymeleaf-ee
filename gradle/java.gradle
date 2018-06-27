@@ -1,0 +1,65 @@
+//tag::dependencies[]
+allprojects {
+  //end::dependencies[]
+  apply plugin: 'java'
+
+  version = '0.0.1'
+  group = 'com.github.daggerok'
+  sourceCompatibility = targetCompatibility = "$javaVersion"
+
+  /*
+  apply plugin: 'ear'
+
+  ear {
+    archiveName = "${project.name}.ear"
+  }
+  */
+
+  apply plugin: 'war'
+
+  war {
+    archiveName = "${project.name}.war"
+  }
+
+  defaultTasks 'clean', 'build'
+
+  compileJava.dependsOn(processResources)
+
+  //tag::dependencies[]
+  dependencies {
+    //end::dependencies[]
+
+    //// In java we trust...
+    implementation "io.vavr:vavr:$vavrVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    providedCompile "javax:javaee-api:$javaeeVersion"
+    providedCompile 'com.h2database:h2:1.4.196'
+
+    implementation "org.hibernate:hibernate-core:$hibernateCoreVersion"
+    implementation 'javax.json:javax.json-api:1.0'
+    implementation 'org.glassfish:javax.json:1.0.4'
+    implementation 'org.jboss.resteasy:resteasy-json-p-provider:3.0.7.Final'
+
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
+
+    //tag::dependencies[]
+    implementation 'javax.mvc:javax.mvc-api:1.0-pr'
+    implementation 'org.mvc-spec.ozark:ozark-resteasy:1.0.0-m03'
+    implementation 'org.mvc-spec.ozark.ext:ozark-thymeleaf:1.0.0-m03', {
+      exclude group: 'org.thymeleaf', module: 'thymeleaf'
+    }
+    implementation 'org.thymeleaf:thymeleaf:3.0.9.RELEASE'
+    /*
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.1.RELEASE',
+        'org.thymeleaf.extras:thymeleaf-extras-tiles2:2.1.1.RELEASE',
+        'org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.2.RELEASE'
+    testImplementation 'org.thymeleaf:thymeleaf-testing:3.0.3.RELEASE'
+    */
+  }
+}
+//end::dependencies[]
