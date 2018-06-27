@@ -1,7 +1,6 @@
-= thymeleaf-ee
+= thymeleaf-ee image:https://travis-ci.org/daggerok/thymeleaf-ee.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/thymeleaf-ee"]
 
 ////
-image:https://travis-ci.org/daggerok/thymeleaf-ee.svg?branch=master["Build Status", link="https://travis-ci.org/daggerok/thymeleaf-ee"]
 image:https://gitlab.com/daggerok/thymeleaf-ee/badges/master/build.svg["Build Status", link="https://gitlab.com/daggerok/thymeleaf-ee/-/jobs"]
 image:https://img.shields.io/bitbucket/pipelines/daggerok/thymeleaf-ee.svg["Build Status", link="https://bitbucket.com/daggerok/thymeleaf-ee"]
 ////
