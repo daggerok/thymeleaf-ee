@@ -7,6 +7,8 @@ image:https://img.shields.io/bitbucket/pipelines/daggerok/thymeleaf-ee.svg["Buil
 
 //tag::content[]
 
+This repo contains example of Thymeleaf and  Java EE integration
+
 Read GitHub pages link:https://daggerok.github.io/thymeleaf-ee[project reference documentation]
 
 ////
