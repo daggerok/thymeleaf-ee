@@ -1,10 +1,6 @@
 service:
 - docker
 
-env:
-  global:
-  - TERM=dumb
-
 language: java
 jdk: oraclejdk8
 
@@ -34,7 +30,14 @@ script:
 - http :8080/app/api/health
 - ./gradlew composeDown
 
-before_deploy: ./gradlew documentation
+before_deploy:
+#- ./gradlew documentation
+- ./mvnw -Pdocs
+
+env:
+  global:
+  - TERM=dumb
+  - secure: sMXvtZIcuOx/+W8IxDjLpBtKmZSCsFwJKCw6iiH+Uq3T4AZ5d6WeacNz15IhRjpxBpwZDVJRhU7wWXtbJChEMXpA4qoLLuIPSt4Z0iVAF19Y0dukQalTnwTuDQwWKY39jmZvTgcBIpcY5W7mvPf0bO98T/V8T0k6FfEaKBkpu9+laSR9VHJ2gVHQnDx6eeW6pfEp8GRqAtap6KTHFVAVuwC3MuZ/qH02OZLScjmRKpE8WYC6KWFguTx79PC8m4Hhi0n+LXRlEugCrRGAUoSXbkaV6HiMcDj7SH+V7r9nYMQBTSMBmUWja5ZmUViOf3QYyftRjKUeAgN4Ct6LFaZ1zbLNlG2a5rJuqyrEBD5uo7n2eolLqLR3CD/JKzomsMXxvOO12dUCVUNZa5R/jLFPguAUhSJjvH/+tZJGSxO9wue4EQDod8GI/jx3Vw4Y0SRRRyjdnqgG0p6TF8BV61Qu5OrtbhgccLsmFyLcFNCrtMVJeS3HHVYZEAJYeyQRlWf+152yJEoMNg+GGmXNl5wg6rs+pDT+2x83xyWLqN9YcYFMCoR2UGXVPnJdBcJEGAMMksjfQ3qS7any3Asecvge/jqCiBhIdzM8FMlKemljfv32X5ra+9g/D3lsQF45Q1nviDpY8KeYGmwnP+HO9rpZMUxFW83xZhV6w1EyMDAoWbg=
 
 deploy:
   provider: pages
