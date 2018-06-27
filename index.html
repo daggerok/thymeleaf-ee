@@ -619,7 +619,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-27 23:41:01 UTC</span>
+<span id="revdate">2018-06-27 23:49:22 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -768,19 +768,15 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 
   <span class="annotation">@Override</span>
   <span class="directive">public</span> <span class="type">void</span> processView(ViewEngineContext context) <span class="directive">throws</span> ViewEngineException {
-    Try.of(() -&gt; {
+    Try.run(() -&gt; {
 
       <span class="directive">final</span> HttpServletRequest request = context.getRequest();
       <span class="directive">final</span> HttpServletResponse response = context.getResponse();
-
       <span class="directive">final</span> WebContext webContext = <span class="keyword">new</span> WebContext(request, response, servletContext, request.getLocale());
+
       webContext.setVariables(context.getModels());
       request.setAttribute(<span class="string"><span class="delimiter">&quot;</span><span class="content">view</span><span class="delimiter">&quot;</span></span>, context.getView());
-
-      <span class="directive">final</span> <span class="predefined-type">String</span> template = <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>;
-      engine.process(template, webContext, response.getWriter());
-
-      <span class="keyword">return</span> template; <span class="comment">// not needed, just because we are using vavr Try.of()</span>
+      engine.process(<span class="comment">/*default layout*/</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>, webContext, response.getWriter());
 
     }).getOrElseThrow(ViewEngineException::<span class="keyword">new</span>);
   }
@@ -804,7 +800,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
   <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
   <span class="directive">public</span> <span class="predefined-type">String</span> indexView() {
     models.put(<span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello, World!</span><span class="delimiter">&quot;</span></span>);
-    models.put(<span class="string"><span class="delimiter">&quot;</span><span class="content">data</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">List</span>.of(<span class="string"><span class="delimiter">&quot;</span><span class="content">ololo</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">trololo</span><span class="delimiter">&quot;</span></span>).toJavaList());
+    models.put(<span class="string"><span class="delimiter">&quot;</span><span class="content">data</span><span class="delimiter">&quot;</span></span>, asList(<span class="string"><span class="delimiter">&quot;</span><span class="content">ololo</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">trololo</span><span class="delimiter">&quot;</span></span>));
     <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">index</span><span class="delimiter">&quot;</span></span>;
   }
 }</code></pre>
@@ -911,7 +907,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-27 23:41:01 UTC
+Last updated 2018-06-27 23:49:22 UTC
 </div>
 </div>
 </body>
