@@ -54,12 +54,14 @@ allprojects {
       exclude group: 'org.thymeleaf', module: 'thymeleaf'
     }
     implementation 'org.thymeleaf:thymeleaf:3.0.9.RELEASE'
+    //end::dependencies[]
     /*
     implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.1.RELEASE',
         'org.thymeleaf.extras:thymeleaf-extras-tiles2:2.1.1.RELEASE',
         'org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.2.RELEASE'
     testImplementation 'org.thymeleaf:thymeleaf-testing:3.0.3.RELEASE'
     */
+    //tag::dependencies[]
   }
 }
 //end::dependencies[]
