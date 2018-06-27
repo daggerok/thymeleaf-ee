@@ -31,8 +31,8 @@ script:
 - ./gradlew composeDown
 
 before_deploy:
-#- ./gradlew documentation
-- ./mvnw -Pdocs
+- ./gradlew documentation
+#- ./mvnw -Pdocs
 
 env:
   global:
