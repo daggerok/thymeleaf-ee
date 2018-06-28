@@ -619,7 +619,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-28 03:32:31 UTC</span>
+<span id="revdate">2018-06-28 03:36:30 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -630,9 +630,10 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#create-java-ee-project">2.1. create Java EE project</a></li>
 <li><a href="#add-thymeleaf-and-mvc-1-0-spec-dependencies">2.2. add thymeleaf and mvc 1.0 spec dependencies</a></li>
 <li><a href="#configure-thymeleaf">2.3. configure thymeleaf</a></li>
-<li><a href="#create-mvc-controller">2.4. create MVC controller</a></li>
-<li><a href="#add-default-basic-pages-layout">2.5. add default (basic) pages layout</a></li>
-<li><a href="#and-finally-create-view-for-index-page">2.6. and finally create view for index page</a></li>
+<li><a href="#configure-jax-rs-serve-static-files-and-webjars">2.4. configure JAX-RS serve static files and webjars</a></li>
+<li><a href="#create-mvc-controller">2.5. create MVC controller</a></li>
+<li><a href="#add-default-basic-pages-layout">2.6. add default (basic) pages layout</a></li>
+<li><a href="#and-finally-create-view-for-index-page">2.7. and finally create view for index page</a></li>
 </ul>
 </li>
 <li><a href="#links">3. Links</a></li>
@@ -719,6 +720,21 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
       <span class="tag">&lt;artifactId&gt;</span>thymeleaf<span class="tag">&lt;/artifactId&gt;</span>
       <span class="tag">&lt;version&gt;</span>3.0.9.RELEASE<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+      <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
+      <span class="tag">&lt;artifactId&gt;</span>material-design-icons<span class="tag">&lt;/artifactId&gt;</span>
+      <span class="tag">&lt;version&gt;</span>3.0.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+      <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
+      <span class="tag">&lt;artifactId&gt;</span>jquery<span class="tag">&lt;/artifactId&gt;</span>
+      <span class="tag">&lt;version&gt;</span>3.3.1-1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+      <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
+      <span class="tag">&lt;artifactId&gt;</span>materializecss<span class="tag">&lt;/artifactId&gt;</span>
+      <span class="tag">&lt;version&gt;</span>0.100.2<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
   <span class="tag">&lt;/dependencies&gt;</span></code></pre>
 </div>
 </div>
@@ -790,7 +806,62 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-mvc-controller"><a class="anchor" href="#create-mvc-controller"></a>2.4. create MVC controller</h3>
+<h3 id="configure-jax-rs-serve-static-files-and-webjars"><a class="anchor" href="#configure-jax-rs-serve-static-files-and-webjars"></a>2.4. configure JAX-RS serve static files and webjars</h3>
+<div class="listingblock">
+<div class="title"><code>StaticResourcesResource.java</code> file:</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Stateless</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">StaticResourcesResource</span> {
+
+  <span class="annotation">@Inject</span> ServletContext context;
+
+  <span class="comment">/**
+   * Serving webjar dependencies
+   *
+   * see: https://www.webjars.org
+   */</span>
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^webjars</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> Response webjars(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path,
+                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Accept-Encoding</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> encoding,
+                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> contentType,
+                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Accept</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> accept) {
+
+    <span class="directive">final</span> <span class="predefined-type">String</span> absolutePath = format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/META-INF/resources/%s</span><span class="delimiter">&quot;</span></span>, path);
+    <span class="directive">final</span> <span class="predefined-type">InputStream</span> resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
+
+    <span class="keyword">return</span> <span class="predefined-constant">null</span> == resource
+        ? Response.status(NOT_FOUND).build()
+        : Response.ok().entity(resource).build();
+  }
+
+  <span class="comment">/**
+   * Serving static files form folders:
+   *
+   * /WEB-INF/resources
+   * /WEB-INF/static
+   * /WEB-INF/public
+   * /WEB-INF/assets
+   */</span>
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^(assets|public|static|resources)</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> Response staticResources(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
+
+    <span class="directive">final</span> <span class="predefined-type">InputStream</span> resource = context.getResourceAsStream(format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/%s</span><span class="delimiter">&quot;</span></span>, path));
+
+    <span class="keyword">return</span> <span class="predefined-constant">null</span> == resource
+        ? Response.status(NOT_FOUND).build()
+        : Response.ok().entity(resource).build();
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-mvc-controller"><a class="anchor" href="#create-mvc-controller"></a>2.5. create MVC controller</h3>
 <div class="listingblock">
 <div class="title">resteasy controller</div>
 <div class="content">
@@ -813,7 +884,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-default-basic-pages-layout"><a class="anchor" href="#add-default-basic-pages-layout"></a>2.5. add default (basic) pages layout</h3>
+<h3 id="add-default-basic-pages-layout"><a class="anchor" href="#add-default-basic-pages-layout"></a>2.6. add default (basic) pages layout</h3>
 <div class="listingblock">
 <div class="title">Thymeleaf default layout template in <code>src/main/resources/webapp/WEB-INF/layouts/default.html</code> file:</div>
 <div class="content">
@@ -859,7 +930,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="and-finally-create-view-for-index-page"><a class="anchor" href="#and-finally-create-view-for-index-page"></a>2.6. and finally create view for index page</h3>
+<h3 id="and-finally-create-view-for-index-page"><a class="anchor" href="#and-finally-create-view-for-index-page"></a>2.7. and finally create view for index page</h3>
 <div class="listingblock">
 <div class="title">Thymeleaf index view template (file <code>src/main/resources/webapp/WEB-INF/layouts/index.html</code>):</div>
 <div class="content">
@@ -926,7 +997,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-28 03:32:31 UTC
+Last updated 2018-06-28 03:36:30 UTC
 </div>
 </div>
 </body>
