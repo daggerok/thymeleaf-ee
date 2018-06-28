@@ -619,7 +619,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-28 03:36:30 UTC</span>
+<span id="revdate">2018-06-28 03:43:16 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -824,10 +824,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 
   <span class="annotation">@GET</span>
   <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^webjars</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
-  <span class="directive">public</span> Response webjars(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path,
-                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Accept-Encoding</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> encoding,
-                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> contentType,
-                          <span class="annotation">@HeaderParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Accept</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> accept) {
+  <span class="directive">public</span> Response webjars(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
 
     <span class="directive">final</span> <span class="predefined-type">String</span> absolutePath = format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/META-INF/resources/%s</span><span class="delimiter">&quot;</span></span>, path);
     <span class="directive">final</span> <span class="predefined-type">InputStream</span> resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
@@ -997,7 +994,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1<br>
-Last updated 2018-06-28 03:36:30 UTC
+Last updated 2018-06-28 03:43:16 UTC
 </div>
 </div>
 </body>
