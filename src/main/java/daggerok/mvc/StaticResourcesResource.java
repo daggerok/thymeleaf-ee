@@ -1,6 +1,8 @@
 package daggerok.mvc;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
@@ -15,10 +17,20 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 @Stateless
 public class StaticResourcesResource {
 
+  @Inject ServletContext context;
+
+  /**
+   * Serving webjar dependencies
+   *
+   * see: https://www.webjars.org
+   */
+
   @GET
-  @Path("{path:(webjars|assets)\\/.*}")
+  @Path("{path:webjars\\/.*}")
   public Response webjars(@PathParam("path") final String path,
-                                  @HeaderParam("Accept-Encoding") final String encoding) {
+                          @HeaderParam("Accept-Encoding") final String encoding,
+                          @HeaderParam("Content-Type") final String contentType,
+                          @HeaderParam("Accept") final String accept) {
 
     final String absolutePath = format("/META-INF/resources/%s", path);
     final InputStream resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
@@ -28,16 +40,23 @@ public class StaticResourcesResource {
         : Response.ok().entity(resource).build();
   }
 
-  @GET
-  @Path("{path:(public|static|resources)\\/.*}")
-  public Response staticResources(@PathParam("path") final String path,
-                                  @HeaderParam("Accept-Encoding") final String encoding) {
+  /**
+   * Serving static files form folders:
+   *
+   * /WEB-INF/resources
+   * /WEB-INF/static
+   * /WEB-INF/public
+   * /WEB-INF/assets
+   */
 
-    final String absolutePath = format("/META-INF/%s", path);
-    final InputStream resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
+  @GET
+  @Path("{path:^(assets|public|static|resources)\\/.*}")
+  public Response staticResources(@PathParam("path") final String path) {
+
+    final InputStream resource = context.getResourceAsStream(format("/WEB-INF/%s", path));
 
     return null == resource
         ? Response.status(NOT_FOUND).build()
-        : Response.ok()/*.encoding(encoding)*/.entity(resource).build();
+        : Response.ok().entity(resource).build();
   }
 }

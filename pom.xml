@@ -81,6 +81,12 @@
     </dependency>
     -->
 
+    <!--<dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-html</artifactId>
+      <version>3.5.1.Final</version>
+    </dependency>-->
+
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>materializecss</artifactId>

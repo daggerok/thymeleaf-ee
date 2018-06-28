@@ -28,7 +28,9 @@ allprojects {
   //tag::dependencies[]
   dependencies {
 
-      implementation 'org.webjars:materializecss:0.100.2'
+    implementation 'org.webjars:materializecss:0.100.2'
+    //implementation 'org.jboss.resteasy:resteasy-html:3.5.1.Final'
+    //implementation 'org.restlet.jee:org.restlet:2.4.0'
 
     //tag::dependencies[]
     implementation 'javax.mvc:javax.mvc-api:1.0-pr'

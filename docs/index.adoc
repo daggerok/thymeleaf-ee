@@ -109,3 +109,5 @@ ifdef::backend-html5[- link:./index.pdf[Documentation in PFD format]]
 
 - link:https://dzone.com/articles/thymeleaf-with-javaee-8[DZone: Thymeleaf With JavaEE 8 article]
 - link:https://www.mvc-spec.org/ozark/docs/install-javaee.html[JSR 371: Model-View-Controller Specification]
+- link:http://docs.jboss.org/resteasy/docs/2.3.7.Final/userguide/html_single/index.html#filter[Resteasy docs]
+- link:https://www.slideshare.net/masatoshitada7/getting-start-java-ee-actionbased-mvc-with-thymeleaf[Ozark: MVC for JavaEE]
