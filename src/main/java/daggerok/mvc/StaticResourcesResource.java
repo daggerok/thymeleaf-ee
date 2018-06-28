@@ -26,7 +26,7 @@ public class StaticResourcesResource {
    */
 
   @GET
-  @Path("{path:webjars\\/.*}")
+  @Path("{path: ^webjars\\/.*}")
   public Response webjars(@PathParam("path") final String path,
                           @HeaderParam("Accept-Encoding") final String encoding,
                           @HeaderParam("Content-Type") final String contentType,
@@ -50,7 +50,7 @@ public class StaticResourcesResource {
    */
 
   @GET
-  @Path("{path:^(assets|public|static|resources)\\/.*}")
+  @Path("{path: ^(assets|public|static|resources)\\/.*}")
   public Response staticResources(@PathParam("path") final String path) {
 
     final InputStream resource = context.getResourceAsStream(format("/WEB-INF/%s", path));
