@@ -81,6 +81,7 @@
     </dependency>
     -->
 
+    <!--tag::dependencies[]-->
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>material-design-icons</artifactId>
@@ -96,6 +97,7 @@
       <artifactId>materializecss</artifactId>
       <version>0.100.2</version>
     </dependency>
+    <!--end::dependencies[]-->
 
     <dependency>
       <groupId>javax</groupId>

@@ -70,6 +70,14 @@ include::../gradle/java.gradle[tags=dependencies]
 include::../src/main/java/daggerok/mvc/ThymeleafViewEngine.java[tags=content]
 ----
 
+=== configure JAX-RS serve static files and webjars
+
+.`StaticResourcesResource.java` file:
+[source,java]
+----
+include::../src/main/java/daggerok/mvc/StaticResourcesResource.java[tags=content]
+----
+
 === create MVC controller
 
 .resteasy controller

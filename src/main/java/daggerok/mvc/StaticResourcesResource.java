@@ -13,6 +13,7 @@ import java.io.InputStream;
 import static java.lang.String.format;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
+//tag::content[]
 @Path("")
 @Stateless
 public class StaticResourcesResource {
@@ -60,3 +61,4 @@ public class StaticResourcesResource {
         : Response.ok().entity(resource).build();
   }
 }
+//end::content[]
