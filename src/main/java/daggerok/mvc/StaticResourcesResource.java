@@ -17,7 +17,7 @@ public class StaticResourcesResource {
 
   @GET
   @Path("{path:(webjars|assets)\\/.*}")
-  public Response staticResources(@PathParam("path") final String path,
+  public Response webjars(@PathParam("path") final String path,
                                   @HeaderParam("Accept-Encoding") final String encoding) {
 
     final String absolutePath = format("/META-INF/resources/%s", path);
@@ -25,6 +25,19 @@ public class StaticResourcesResource {
 
     return null == resource
         ? Response.status(NOT_FOUND).build()
-        : Response.ok().encoding(encoding).entity(resource).build();
+        : Response.ok().entity(resource).build();
+  }
+
+  @GET
+  @Path("{path:(public|static|resources)\\/.*}")
+  public Response staticResources(@PathParam("path") final String path,
+                                  @HeaderParam("Accept-Encoding") final String encoding) {
+
+    final String absolutePath = format("/META-INF/%s", path);
+    final InputStream resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
+
+    return null == resource
+        ? Response.status(NOT_FOUND).build()
+        : Response.ok()/*.encoding(encoding)*/.entity(resource).build();
   }
 }
