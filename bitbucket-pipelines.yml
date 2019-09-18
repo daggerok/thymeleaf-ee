@@ -4,7 +4,6 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 image: openjdk:8u171-jdk-stretch
-
 pipelines:
   default:
     - step:

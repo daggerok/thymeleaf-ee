@@ -1,16 +1,10 @@
 allprojects {
-  // read more: https://docs.gradle.org/4.6/release-notes.html#junit-5-support
-
   dependencies {
-    testImplementation "org.hamcrest:hamcrest-core:$hamcrestVersion"
-
     testImplementation "org.junit.jupiter:junit-jupiter:$junitJupiterVersion"
-
     testImplementation "junit:junit:$junit4Version"
     testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitJupiterVersion", {
       because 'allows JUnit 3 and JUnit 4 tests to run'
     }
-    //testCompileOnly 'org.apiguardian:apiguardian-api:1.0.0'
   }
 
   test {
@@ -18,6 +12,5 @@ allprojects {
       includeEngines 'junit-jupiter', 'junit-vintage'
     }
   }
-
   //apply from: "$project.rootDir/gradle/jgiven.gradle"
 }

@@ -28,8 +28,8 @@ install: true
 before_install:
 - docker-compose -v
 - export PATH=$HOME/.local/bin:$PATH
-- pip3 install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
-- pip install --user $(whoami) --upgrade docker-compose httpie >/dev/null
+- $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
+- $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
 - http --version
 - docker-compose -v
 #
@@ -42,8 +42,9 @@ jobs:
   include:
   - stage: test
     jdk: openjdk8
+    name: jdk8 maven integration test
     script:
-    - ./mvmw
+    - ./mvnw
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f mvn_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
@@ -51,8 +52,9 @@ jobs:
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
     jdk: openjdk11
+    name: jdk11 maven integration test
     script:
-    - ./mvmw
+    - ./mvnw
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f mvn_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
@@ -60,10 +62,11 @@ jobs:
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
     jdk: openjdk8
+    name: jdk8 gradle integration test
     script:
     - ./gradlew
     - ./gradlew composeUp
-    - docker logs -f gradle_thymeleaf-ee-app_1 &
+    - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
     - http :8080/app/api/
     - http :8080/app/api/health
@@ -71,9 +74,10 @@ jobs:
     - ./gradlew --stop      >/dev/null
   - stage: test
     jdk: openjdk11
+    name: jdk11 gradle integration test
     script:
     - ./gradlew clean build composeUp
-    - docker logs -f gradle_thymeleaf-ee-app_1 &
+    - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
     - http :8080/app/api/
     - http :8080/app/api/health
@@ -81,10 +85,28 @@ jobs:
     - ./gradlew --stop      >/dev/null
   - stage: test
     jdk: openjdk11
+    name: jdk11 maven updates
     script: ./mvnw versions:display-property-updates
   - stage: test
     jdk: openjdk11
+    name: jdk11 gradle updates
     script: ./gradlew dependencyUpdates -Drevision=release
+  - stage: test
+    jdk: openjdk8
+    name: jdk8 gradle documentation
+    script: ./gradlew documentation
+  - stage: test
+    jdk: openjdk11
+    name: jdk11 gradle documentation
+    script: ./gradlew documentation
+  - stage: test
+    jdk: openjdk8
+    name: jdk8 maven documentation
+    script: ./mvnw -Pdocs
+  - stage: test
+    jdk: openjdk11
+    name: jdk11 maven documentation
+    script: ./mvnw -Pdocs
   - stage: deploy
     env:
       global:
