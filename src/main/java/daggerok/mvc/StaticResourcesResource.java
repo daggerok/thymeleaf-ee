@@ -32,7 +32,7 @@ public class StaticResourcesResource {
   @GET
   @Path("{path: ^webjars\\/.*}")
   public Response webjars(@PathParam("path") final String path) {
-    log.info("handling webjars: '{}'", path);
+    log.debug("handling webjars: '{}'", path);
     String absolutePath = format("/META-INF/resources/%s", path);
     InputStream resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
     return Objects.isNull(resource)
@@ -52,7 +52,7 @@ public class StaticResourcesResource {
   @GET
   @Path("{path: ^(assets|public|static|resources)\\/.*}")
   public Response staticResources(@PathParam("path") final String path) {
-    log.info("handling assets: '{}'", path);
+    log.debug("handling assets: '{}'", path);
     InputStream resource = context.getResourceAsStream(format("/WEB-INF/%s", path));
     return null == resource
         ? Response.status(NOT_FOUND).build()
