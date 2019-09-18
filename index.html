@@ -547,7 +547,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.2,</span>
-<span id="revdate">2019-09-18 21:28:07 UTC</span>
+<span id="revdate">2019-09-18 21:39:21 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -690,7 +690,44 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="listingblock">
 <div class="title">configure Thymeleaf view resolver</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Unresolved directive in index.adoc - include::../src/main/java/daggerok/mvc/ThymeleafViewEngine.java[tags=content]</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Slf4j</span>
+<span class="annotation">@ApplicationScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ThymeleafViewEngine</span> <span class="directive">extends</span> ViewEngineBase {
+
+  <span class="annotation">@Inject</span> ServletContext servletContext;
+  TemplateEngine engine;
+
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">boolean</span> supports(<span class="directive">final</span> <span class="predefined-type">String</span> view) {
+    <span class="keyword">return</span> !view.contains(<span class="string"><span class="delimiter">&quot;</span><span class="content">.</span><span class="delimiter">&quot;</span></span>);
+  }
+
+  <span class="annotation">@PostConstruct</span>
+  <span class="directive">public</span> <span class="type">void</span> postConstruct() {
+    <span class="directive">final</span> ServletContextTemplateResolver resolver = <span class="keyword">new</span> ServletContextTemplateResolver(servletContext);
+    resolver.setPrefix(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/layouts/</span><span class="delimiter">&quot;</span></span>);
+    resolver.setSuffix(<span class="string"><span class="delimiter">&quot;</span><span class="content">.html</span><span class="delimiter">&quot;</span></span>);
+    resolver.setTemplateMode(TemplateMode.HTML);
+    resolver.setCacheable(<span class="predefined-constant">false</span>);
+    engine = <span class="keyword">new</span> TemplateEngine();
+    engine.setTemplateResolver(resolver);
+  }
+
+  <span class="annotation">@Override</span>
+  <span class="directive">public</span> <span class="type">void</span> processView(ViewEngineContext context) <span class="directive">throws</span> ViewEngineException {
+    Try.run(() -&gt; {
+
+      <span class="directive">final</span> HttpServletRequest request = context.getRequest();
+      <span class="directive">final</span> HttpServletResponse response = context.getResponse();
+      <span class="directive">final</span> WebContext webContext = <span class="keyword">new</span> WebContext(request, response, servletContext, request.getLocale());
+
+      webContext.setVariables(context.getModels());
+      request.setAttribute(<span class="string"><span class="delimiter">&quot;</span><span class="content">view</span><span class="delimiter">&quot;</span></span>, context.getView());
+      engine.process(<span class="comment">/*default layout*/</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>, webContext, response.getWriter());
+
+    }).getOrElseThrow(ViewEngineException::<span class="keyword">new</span>);
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -699,7 +736,48 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="listingblock">
 <div class="title"><code>StaticResourcesResource.java</code> file:</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Unresolved directive in index.adoc - include::../src/main/java/daggerok/mvc/StaticResourcesResource.java[tags=content]</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@RequestScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">StaticResourcesResource</span> {
+
+  <span class="annotation">@Inject</span> ServletContext context;
+
+  <span class="comment">/**
+   * Serving webjar dependencies
+   *
+   * see: https://www.webjars.org
+   */</span>
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^webjars</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> Response webjars(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
+    <span class="comment">// log.debug(&quot;handling webjars: {}&quot;, path);</span>
+    <span class="predefined-type">String</span> absolutePath = format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/META-INF/resources/%s</span><span class="delimiter">&quot;</span></span>, path);
+    <span class="predefined-type">InputStream</span> resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
+    <span class="keyword">return</span> Objects.isNull(resource)
+        ? Response.status(NOT_FOUND).build()
+        : Response.ok().entity(resource).build();
+  }
+
+  <span class="comment">/**
+   * Serving static files form folders:
+   *
+   * /WEB-INF/resources
+   * /WEB-INF/static
+   * /WEB-INF/public
+   * /WEB-INF/assets
+   */</span>
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^(assets|public|static|resources)</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> Response staticResources(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
+    <span class="comment">// log.debug(&quot;handling assets: {}&quot;, path);</span>
+    <span class="predefined-type">InputStream</span> resource = context.getResourceAsStream(format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/%s</span><span class="delimiter">&quot;</span></span>, path));
+    <span class="keyword">return</span> <span class="predefined-constant">null</span> == resource
+        ? Response.status(NOT_FOUND).build()
+        : Response.ok().entity(resource).build();
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -708,7 +786,21 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="listingblock">
 <div class="title">resteasy controller</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Unresolved directive in index.adoc - include::../src/main/java/daggerok/mvc/IndexPage.java[tags=content]</code></pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Controller</span>
+<span class="annotation">@Produces</span>(TEXT_HTML)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">IndexPage</span> {
+
+  <span class="annotation">@Inject</span> Models models;
+
+  <span class="annotation">@GET</span>
+  <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+  <span class="directive">public</span> <span class="predefined-type">String</span> indexView() {
+    models.put(<span class="string"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello, World!</span><span class="delimiter">&quot;</span></span>);
+    models.put(<span class="string"><span class="delimiter">&quot;</span><span class="content">data</span><span class="delimiter">&quot;</span></span>, asList(<span class="string"><span class="delimiter">&quot;</span><span class="content">ololo</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">trololo</span><span class="delimiter">&quot;</span></span>));
+    <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">index</span><span class="delimiter">&quot;</span></span>;
+  }
+}</code></pre>
 </div>
 </div>
 </div>
@@ -826,7 +918,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.2<br>
-Last updated 2019-09-18 21:28:07 UTC
+Last updated 2019-09-18 21:39:21 UTC
 </div>
 </div>
 </body>
