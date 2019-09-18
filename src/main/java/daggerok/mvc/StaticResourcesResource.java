@@ -1,6 +1,5 @@
 package daggerok.mvc;
 
-import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;

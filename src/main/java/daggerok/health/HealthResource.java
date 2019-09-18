@@ -1,6 +1,5 @@
 package daggerok.health;
 
-import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.ws.rs.GET;

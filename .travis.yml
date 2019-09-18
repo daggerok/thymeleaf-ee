@@ -28,11 +28,11 @@ install: true
 before_install:
 - docker-compose -v
 - export PATH=$HOME/.local/bin:$PATH
-- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)"
 - $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
-- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)"
 - $(which pip3) install --user $(whoami) --upgrade pip >/dev/null
-- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)"
 - $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
 - http --version
 - docker-compose -v
@@ -52,6 +52,8 @@ jobs:
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f mvn_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
+    - http :8080/app/api/health
+    - http :8080/app/api/
     - http :8080/app/
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
@@ -62,6 +64,8 @@ jobs:
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f mvn_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
+    - http :8080/app/api/health
+    - http :8080/app/api/
     - http :8080/app/
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
