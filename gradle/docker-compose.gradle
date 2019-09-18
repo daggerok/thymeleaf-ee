@@ -1,4 +1,4 @@
-def dockerComposeFile = project.file("$rootDir/docker-compose-gradle.yaml")
+def dockerComposeFile = project.file("$rootDir/gradle/docker-compose-gradle.yaml")
 def profile = 'gradle'
 
 if (project.hasProperty('profile')) {

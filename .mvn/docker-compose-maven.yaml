@@ -1,25 +1,21 @@
 version: "2.1"
-
+networks:
+  public-net:
+    driver: bridge
+volumes:
+  maven-thymeleaf-ee-app-data: {}
 services:
-
-  maven-thymeleaf-ee-app:
+  thymeleaf-ee-app:
     #mem_limit: 786432000 # container limit: 700Mb (700 * 1024 * 1024)
     build:
-      context: .
+      context: ..
       dockerfile: .mvn/Dockerfile
     volumes: ["maven-thymeleaf-ee-app-data:/home"]
-    ports:
-    - "5005:5005"
-    - "8080:8080"
-    - "9990:9990"
+    ports: ["5005:5005",
+            "8080:8080",
+            #"8443:8443",
+            "9990:9990",]
     networks:
       public-net:
         aliases:
         - app
-
-volumes:
-  maven-thymeleaf-ee-app-data: {}
-
-networks:
-  public-net:
-    driver: bridge

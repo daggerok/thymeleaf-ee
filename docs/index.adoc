@@ -59,7 +59,7 @@ include::../pom.xml[tags=dependencies]
 .gardle
 [source,groovy]
 ----
-include::../gradle/java.gradle[tags=dependencies]
+include::../build.gradle[tags=dependencies]
 ----
 
 === configure thymeleaf
