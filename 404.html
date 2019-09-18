@@ -547,7 +547,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.2,</span>
-<span id="revdate">2019-09-18 22:49:37 UTC</span>
+<span id="revdate">2019-09-18 23:02:44 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -695,19 +695,19 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 
   <span class="annotation">@Produces</span>
   <span class="annotation">@Singleton</span>
-  <span class="directive">private</span> ServletContextTemplateResolver servletContextTemplateResolver(ServletContext servletContext) {
+  ServletContextTemplateResolver servletContextTemplateResolver(ServletContext servletContext) {
     <span class="comment">// log.debug(&quot;producing lazy template resolver...&quot;);</span>
     val resolver = <span class="keyword">new</span> ServletContextTemplateResolver(servletContext);
+    resolver.setTemplateMode(TemplateMode.HTML);
     resolver.setPrefix(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/layouts/</span><span class="delimiter">&quot;</span></span>);
     resolver.setSuffix(<span class="string"><span class="delimiter">&quot;</span><span class="content">.html</span><span class="delimiter">&quot;</span></span>);
-    resolver.setTemplateMode(TemplateMode.HTML);
     resolver.setCacheable(<span class="predefined-constant">false</span>);
     <span class="keyword">return</span> resolver;
   }
 
   <span class="annotation">@Produces</span>
   <span class="annotation">@Singleton</span>
-  <span class="directive">public</span> TemplateEngine templateEngine(ServletContextTemplateResolver resolver) {
+  TemplateEngine templateEngine(ServletContextTemplateResolver resolver) {
     <span class="comment">// log.debug(&quot;producing lazy template engine...&quot;);</span>
     TemplateEngine templateEngine = <span class="keyword">new</span> TemplateEngine();
     templateEngine.setTemplateResolver(resolver);
@@ -723,10 +723,10 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ThymeleafViewEngine</span> <span class="directive">extends</span> ViewEngineBase {
 
   <span class="annotation">@Inject</span>
-  <span class="directive">private</span> ServletContext servletContext;
+  ServletContext servletContext;
 
   <span class="annotation">@Inject</span>
-  <span class="directive">private</span> TemplateEngine templateEngine;
+  TemplateEngine templateEngine;
 
   <span class="annotation">@Override</span>
   <span class="directive">public</span> <span class="type">boolean</span> supports(<span class="directive">final</span> <span class="predefined-type">String</span> view) {
@@ -759,7 +759,8 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <span class="annotation">@RequestScoped</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">StaticResourcesResource</span> {
 
-  <span class="annotation">@Inject</span> ServletContext context;
+  <span class="annotation">@Inject</span>
+  ServletContext context;
 
   <span class="comment">/**
    * Serving webjar dependencies
@@ -808,9 +809,10 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
 <span class="annotation">@Controller</span>
 <span class="annotation">@Produces</span>(TEXT_HTML)
-<span class="directive">public</span> <span class="type">class</span> <span class="class">IndexPage</span> {
+<span class="directive">public</span> <span class="type">class</span> <span class="class">IndexPageController</span> {
 
-  <span class="annotation">@Inject</span> Models models;
+  <span class="annotation">@Inject</span>
+  Models models;
 
   <span class="annotation">@GET</span>
   <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
@@ -937,7 +939,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.2<br>
-Last updated 2019-09-18 22:49:37 UTC
+Last updated 2019-09-18 23:02:44 UTC
 </div>
 </div>
 </body>
