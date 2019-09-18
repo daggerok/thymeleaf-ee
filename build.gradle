@@ -6,11 +6,11 @@ buildscript {
     slf4jVersion = '1.7.25'
     jgivenVersion = '0.15.3'
     logbackVersion = '1.2.3'
-    lombokVersion = '1.16.22'
+    lombokVersion = '1.18.10'
+    thymeleafVersion = '3.0.9.RELEASE'
     hibernateCoreVersion = '4.2.18.Final'
     asciidoctorjPdfVersion = '1.5.0-alpha.15'
-    junitPlatformVersion = '1.2.0'
-    junitJupiterVersion = '5.2.0'
+    junitJupiterVersion = '5.5.2'
     hamcrestVersion = '1.3'
     junit4Version = '4.12'
   }
@@ -21,24 +21,123 @@ buildscript {
 }
 
 plugins {
+  id 'idea'
+  id 'io.franzbecker.gradle-lombok' version '3.1.0'
+  id 'com.github.ben-manes.versions' version '0.25.0'
   id 'com.avast.gradle.docker-compose' version '0.6.13'
   id 'org.asciidoctor.convert' version '1.5.7' apply false
   id 'org.ajoberstar.git-publish' version '0.3.0' apply false
-  id 'cn.bestwu.propdeps-eclipse' version '0.0.10' apply false
-  id 'cn.bestwu.propdeps-maven' version '0.0.10' apply false
-  id 'cn.bestwu.propdeps-idea' version '0.0.10' apply false
-  id 'cn.bestwu.propdeps' version '0.0.10' apply false
 }
 
 wrapper {
-  gradleVersion = '4.8.1'
+  gradleVersion = '5.6.2'
   distributionType = 'BIN'
 }
 
-apply from: "$rootDir/gradle/ide.gradle"
-apply from: "$rootDir/gradle/clean.gradle"
-apply from: "$rootDir/gradle/repositories.gradle"
-apply from: "$rootDir/gradle/java.gradle"
+idea {
+  module {
+    downloadJavadoc = false
+    downloadSources = true
+  }
+}
+
+allprojects {
+  apply plugin: 'base'
+
+  clean.doFirst {
+    [
+            project.buildDir,
+            project.file('out'),
+            project.file('bin'),
+            project.file('build'),
+            project.file('target'),
+            project.file('public'),
+            project.file('.allure'),
+            project.file('.project'),
+            project.file('.settings'),
+            project.file('.classpath'),
+            project.file("$rootDir/dist"),
+            project.file('allure-report'),
+            project.file('allure-results'),
+            project.file("$rootDir/src/main/resources/public/docs"),
+    ].each { delete it }
+    // rm -rf $(find . -name 'ajcore.*.txt')
+    delete fileTree(rootDir).matching {
+      include '**/ajcore.*.txt'
+      include '**/allure-results/**'
+      include '**/allure-report/**'
+      include '**/.allure/**'
+    }
+  }
+}
+
+allprojects {
+  buildscript {
+    apply from: "$rootDir/gradle/repositories-config.gradle"
+  }
+  apply from: "$rootDir/gradle/repositories-config.gradle"
+}
+
+//tag::dependencies[]
+allprojects {
+  //end::dependencies[]
+  apply plugin: 'java'
+
+  version = '0.0.2'
+  group = 'com.github.daggerok'
+  sourceCompatibility = targetCompatibility = "$javaVersion"
+
+  apply plugin: 'war'
+
+  war {
+    archiveName = "${project.name}.war"
+  }
+
+  defaultTasks 'clean', 'build'
+
+  compileJava.dependsOn(processResources)
+
+  //tag::dependencies[]
+  dependencies {
+    implementation 'org.webjars:material-design-icons:3.0.1'
+    implementation 'org.webjars:materializecss:1.0.0'
+
+    implementation 'javax.mvc:javax.mvc-api:1.0-pr'
+    implementation 'org.mvc-spec.ozark:ozark-resteasy:1.0.0-m03'
+    implementation 'org.mvc-spec.ozark.ext:ozark-thymeleaf:1.0.0-m03', {
+      exclude group: 'org.thymeleaf', module: 'thymeleaf'
+    }
+    implementation 'org.thymeleaf:thymeleaf:3.0.11.RELEASE'
+    //end::dependencies[]
+    /*
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.1.RELEASE',
+        'org.thymeleaf.extras:thymeleaf-extras-tiles2:2.1.1.RELEASE',
+        'org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.2.RELEASE'
+    testImplementation 'org.thymeleaf:thymeleaf-testing:3.0.3.RELEASE'
+    */
+
+    //// In java we trust...
+    implementation "io.vavr:vavr:$vavrVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    providedCompile "javax:javaee-api:$javaeeVersion"
+    providedCompile 'com.h2database:h2:1.4.199'
+
+    implementation "org.hibernate:hibernate-core:$hibernateCoreVersion"
+    implementation 'javax.json:javax.json-api:1.1.4'
+    implementation 'org.glassfish:javax.json:1.1.4'
+    implementation 'org.jboss.resteasy:resteasy-json-p-provider:3.0.7.Final'
+
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:slf4j-jdk14:$slf4jVersion"
+    //tag::dependencies[]
+  }
+}
+//end::dependencies[]
+
 apply from: "$rootDir/gradle/junit.gradle"
 apply from: "$rootDir/gradle/findbugs.gradle"
 apply from: "$rootDir/gradle/docker-compose.gradle"

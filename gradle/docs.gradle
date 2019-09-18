@@ -58,7 +58,6 @@ task documentation(type: Copy, dependsOn: asciidoctor) {
 }
 
 gitPublish {
-  // repoUri = "git@gitlab.com:daggerok/${rootProject.name}.git" // same gitlab plugin?
   repoUri = "git@github.com:daggerok/${rootProject.name}.git"
   branch = 'gh-pages'
 

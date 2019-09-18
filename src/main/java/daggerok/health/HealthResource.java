@@ -1,6 +1,7 @@
 package daggerok.health;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("api")
-@Stateless
+@RequestScoped
 @Produces(APPLICATION_JSON)
 public class HealthResource {
 

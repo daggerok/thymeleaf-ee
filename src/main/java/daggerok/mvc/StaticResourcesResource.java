@@ -1,6 +1,7 @@
 package daggerok.mvc;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -14,7 +15,7 @@ import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
 //tag::content[]
 @Path("")
-@Stateless
+@RequestScoped
 public class StaticResourcesResource {
 
   @Inject ServletContext context;
