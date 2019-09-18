@@ -4,6 +4,7 @@ git:
 env:
   global:
   - TERM=dumb
+  - secure: "q5Mthp+HKvg1uTwuOxlwgUsmESTZEpC2y/dLCeVyeg1gHh2XZ7F/o34IT9let2IjL97NyQGWs+KuvjEnfBhvwjKqAcBzZz5aHJok98zD9N/qwqgxw17tp3dXiDRSk9fN0a7i8V5i2najGQDBumo1IuVrWSmhPcV2aI3Hl2Kfzd0uZTsJRUsqvuunJYdOef/UcLdk2myFiXsG9MwdyqIiAKIjAH9oh913K+1LqDreoN6QzzGZ931Mvr90uOUs3B8V/3bdgLjSpkg8beXA51d1FgqaJE7OlwQ2E0CHux/1pq61WLLCG/m5HL0C5VIsR4X1Yei7owp0w5Z3A6D1kHGDIfrL3Fw5umQwEOTur1UBAeocciCqBj4RNYHEQhRYt3mUcwAz+pMgFspVkkSKaRGIoULObkhcM56VOKElP+DhnG9HPTx5LtKBxtbSt+/GTDc9K7CX5BJnrp+6uWe4t++lWciyZ9q4TOINi3DMjmAzpt9V7QNl5JxciZIowPMd2AsE6U18DUoMjxCjBIEAtWSJNnH2Sfa6zgp5UYvBngOGiSwbwJiZqnw9nlebQDPic/ywMlI7Pfawrt9goCq4s5ueycW7V41N54uAU/WurqgymgzBEtNzPVxJkQ/FrgfjO7A6zm/kz6fG78fVV4uHbckCk1rb9enBVsIpEuljgHgHawI="
 language: java
 service:
 - docker
@@ -115,9 +116,6 @@ jobs:
     name: jdk11 maven documentation
     script: ./mvnw -Pdocs
   - stage: deploy
-    env:
-      global:
-      - secure: sMXvtZIcuOx/+W8IxDjLpBtKmZSCsFwJKCw6iiH+Uq3T4AZ5d6WeacNz15IhRjpxBpwZDVJRhU7wWXtbJChEMXpA4qoLLuIPSt4Z0iVAF19Y0dukQalTnwTuDQwWKY39jmZvTgcBIpcY5W7mvPf0bO98T/V8T0k6FfEaKBkpu9+laSR9VHJ2gVHQnDx6eeW6pfEp8GRqAtap6KTHFVAVuwC3MuZ/qH02OZLScjmRKpE8WYC6KWFguTx79PC8m4Hhi0n+LXRlEugCrRGAUoSXbkaV6HiMcDj7SH+V7r9nYMQBTSMBmUWja5ZmUViOf3QYyftRjKUeAgN4Ct6LFaZ1zbLNlG2a5rJuqyrEBD5uo7n2eolLqLR3CD/JKzomsMXxvOO12dUCVUNZa5R/jLFPguAUhSJjvH/+tZJGSxO9wue4EQDod8GI/jx3Vw4Y0SRRRyjdnqgG0p6TF8BV61Qu5OrtbhgccLsmFyLcFNCrtMVJeS3HHVYZEAJYeyQRlWf+152yJEoMNg+GGmXNl5wg6rs+pDT+2x83xyWLqN9YcYFMCoR2UGXVPnJdBcJEGAMMksjfQ3qS7any3Asecvge/jqCiBhIdzM8FMlKemljfv32X5ra+9g/D3lsQF45Q1nviDpY8KeYGmwnP+HO9rpZMUxFW83xZhV6w1EyMDAoWbg=
     jdk: openjdk8
     rvm: 2.6.4
     name: GitHub release and GitHub pages deployment
