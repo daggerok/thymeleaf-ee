@@ -28,8 +28,8 @@ install: true
 before_install:
 - docker-compose -v
 - export PATH=$HOME/.local/bin:$PATH
-- $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
-- $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
+- echo $(which pip3) && $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
+- echo $(which pip3) && $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
 - http --version
 - docker-compose -v
 #
@@ -134,12 +134,12 @@ jobs:
       local-dir: target/generated-docs
       target_branch: gh-pages
 before_cache:
-- find ~/.gradle -name '*.lock' -type f             -print0 | xargs -0 rm -v -rf '{}'
-- find ~/.gradle -name 'plugin-resolution' -type d  -print0 | xargs -0 rm -v -rf '{}'
+- find ~/.gradle -name '*.lock' -type f             -print0 | xargs -0 sudo rm -rfv '{}'
+- find ~/.gradle -name 'plugin-resolution' -type d  -print0 | xargs -0 sudo rm -rfv '{}'
 cache:
   pip: true
   packages: true
   directories:
-  - $HOME/.docker
-  - $HOME/.gradle
-  - $HOME/.m2
+  - ~/.docker
+  - ~/.gradle
+  - ~/.m2
