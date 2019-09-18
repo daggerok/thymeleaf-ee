@@ -1,4 +1,4 @@
-package daggerok.thymeleafmvc;
+package daggerok.webmvc;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
@@ -14,9 +14,10 @@ import static javax.ws.rs.core.MediaType.TEXT_HTML;
 @Path("")
 @Controller
 @Produces(TEXT_HTML)
-public class IndexPage {
+public class IndexPageController {
 
-  @Inject Models models;
+  @Inject
+  Models models;
 
   @GET
   @Path("")

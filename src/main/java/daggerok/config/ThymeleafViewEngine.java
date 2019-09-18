@@ -1,4 +1,4 @@
-package daggerok.thymeleafmvc;
+package daggerok.config;
 
 import io.vavr.control.Try;
 import org.mvcspec.ozark.engine.ViewEngineBase;
@@ -18,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ThymeleafViewEngine extends ViewEngineBase {
 
   @Inject
-  private ServletContext servletContext;
+  ServletContext servletContext;
 
   @Inject
-  private TemplateEngine templateEngine;
+  TemplateEngine templateEngine;
 
   @Override
   public boolean supports(final String view) {

@@ -1,4 +1,4 @@
-package daggerok.jaxrs;
+package daggerok.webmvc;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
@@ -16,7 +16,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 @Produces(APPLICATION_JSON)
 public class HealthResource {
 
-  @Context UriInfo uriInfo;
+  @Context
+  UriInfo uriInfo;
 
   @GET
   @Path("")

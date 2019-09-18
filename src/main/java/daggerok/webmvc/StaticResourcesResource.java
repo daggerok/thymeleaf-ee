@@ -1,6 +1,4 @@
-package daggerok.jaxrs;
-
-import lombok.extern.slf4j.Slf4j;
+package daggerok.webmvc;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,13 +13,14 @@ import java.util.Objects;
 import static java.lang.String.format;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
-@Slf4j
+// @lombok.extern.slf4j.Slf4j
 //tag::content[]
 @Path("")
 @RequestScoped
 public class StaticResourcesResource {
 
-  @Inject ServletContext context;
+  @Inject
+  ServletContext context;
 
   /**
    * Serving webjar dependencies

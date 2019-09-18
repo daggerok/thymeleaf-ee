@@ -67,13 +67,13 @@ include::../build.gradle[tags=dependencies]
 .configure template resolver and template engine
 [source,java]
 ----
-include::../src/main/java/daggerok/thymeleafmvc/ThymeleafProducer.java[tags=content]
+include::../src/main/java/daggerok/config/ThymeleafProducer.java[tags=content]
 ----
 
 .configure Thymeleaf view resolver
 [source,java]
 ----
-include::../src/main/java/daggerok/thymeleafmvc/ThymeleafViewEngine.java[tags=content]
+include::../src/main/java/daggerok/config/ThymeleafViewEngine.java[tags=content]
 ----
 
 === configure JAX-RS serve static files and webjars
@@ -81,7 +81,7 @@ include::../src/main/java/daggerok/thymeleafmvc/ThymeleafViewEngine.java[tags=co
 .`StaticResourcesResource.java` file:
 [source,java]
 ----
-include::../src/main/java/daggerok/jaxrs/StaticResourcesResource.java[tags=content]
+include::../src/main/java/daggerok/webmvc/StaticResourcesResource.java[tags=content]
 ----
 
 === create MVC controller
@@ -89,7 +89,7 @@ include::../src/main/java/daggerok/jaxrs/StaticResourcesResource.java[tags=conte
 .resteasy controller
 [source,java]
 ----
-include::../src/main/java/daggerok/thymeleafmvc/IndexPage.java[tags=content]
+include::../src/main/java/daggerok/webmvc/IndexPageController.java[tags=content]
 ----
 
 === add default (basic) pages layout
