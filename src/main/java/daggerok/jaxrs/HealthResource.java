@@ -1,4 +1,4 @@
-package daggerok.health;
+package daggerok.jaxrs;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;

@@ -53,8 +53,8 @@ jobs:
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
-    - http :8080/app/api/health
-    - http :8080/app/api/
+    - http :8080/app/api/health | jq '.'
+    - http :8080/app/api/       | jq '.'
     - http :8080/app/
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
@@ -65,8 +65,8 @@ jobs:
     - ./mvnw -Pdocker docker-compose:up
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
-    - http :8080/app/api/health
-    - http :8080/app/api/
+    - http :8080/app/api/health | jq '.'
+    - http :8080/app/api/       | jq '.'
     - http :8080/app/
     - ./mvnw -Pdocker docker-compose:down >/dev/null
   - stage: test
@@ -76,8 +76,8 @@ jobs:
     - ./gradlew clean composeUp
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
-    - http :8080/app/api/
-    - http :8080/app/api/health
+    - http :8080/app/api/       | jq '.'
+    - http :8080/app/api/health | jq '.'
     - ./gradlew composeDown >/dev/null
     - ./gradlew --stop      >/dev/null
   - stage: test
@@ -87,8 +87,8 @@ jobs:
     - ./gradlew clean composeUp
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
-    - http :8080/app/api/
-    - http :8080/app/api/health
+    - http :8080/app/api/       | jq '.'
+    - http :8080/app/api/health | jq '.'
     - ./gradlew composeDown >/dev/null
     - ./gradlew --stop      >/dev/null
   - stage: test

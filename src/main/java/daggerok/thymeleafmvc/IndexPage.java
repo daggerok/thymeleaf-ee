@@ -1,4 +1,4 @@
-package daggerok.mvc;
+package daggerok.thymeleafmvc;
 
 import javax.inject.Inject;
 import javax.mvc.Models;

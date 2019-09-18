@@ -1,4 +1,4 @@
-package daggerok.mvc;
+package daggerok.jaxrs;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,8 +15,8 @@ import java.util.Objects;
 import static java.lang.String.format;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
-//tag::content[]
 @Slf4j
+//tag::content[]
 @Path("")
 @RequestScoped
 public class StaticResourcesResource {
@@ -32,7 +32,7 @@ public class StaticResourcesResource {
   @GET
   @Path("{path: ^webjars\\/.*}")
   public Response webjars(@PathParam("path") final String path) {
-    log.debug("handling webjars: '{}'", path);
+    // log.debug("handling webjars: {}", path);
     String absolutePath = format("/META-INF/resources/%s", path);
     InputStream resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
     return Objects.isNull(resource)
@@ -52,7 +52,7 @@ public class StaticResourcesResource {
   @GET
   @Path("{path: ^(assets|public|static|resources)\\/.*}")
   public Response staticResources(@PathParam("path") final String path) {
-    log.debug("handling assets: '{}'", path);
+    // log.debug("handling assets: {}", path);
     InputStream resource = context.getResourceAsStream(format("/WEB-INF/%s", path));
     return null == resource
         ? Response.status(NOT_FOUND).build()

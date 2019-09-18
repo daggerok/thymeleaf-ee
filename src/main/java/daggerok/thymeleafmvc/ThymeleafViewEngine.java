@@ -1,4 +1,4 @@
-package daggerok.mvc;
+package daggerok.thymeleafmvc;
 
 import io.vavr.control.Try;
 import lombok.extern.slf4j.Slf4j;
