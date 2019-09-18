@@ -46,7 +46,7 @@
     <ozark-thymeleaf.version>1.0.0-m03</ozark-thymeleaf.version><!-- TODO: FIXME: Migrate 1.0.0-m03 -> 1.0.0-m04 -->
   </properties>
 
-  <!--tag::dependencies[]-->
+  <!-- tag::dependencies[] -->
   <dependencies>
     <dependency>
       <groupId>javax.mvc</groupId>
@@ -74,9 +74,9 @@
       <artifactId>thymeleaf</artifactId>
       <version>${thymeleaf.version}</version>
     </dependency>
-    <!--end::dependencies[]-->
+    <!-- end::dependencies[] -->
 
-    <!--tag::dependencies[]-->
+    <!-- tag::dependencies[] -->
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>material-design-icons</artifactId>
@@ -92,7 +92,7 @@
       <artifactId>materializecss</artifactId>
       <version>${materializecss.version}</version>
     </dependency>
-    <!--end::dependencies[]-->
+    <!-- end::dependencies[] -->
 
     <dependency>
       <groupId>javax</groupId>
@@ -199,9 +199,9 @@
       <version>${jgiven.version}</version>
       <scope>test</scope>
     </dependency>
-    <!--tag::dependencies[]-->
+    <!-- tag::dependencies[] -->
   </dependencies>
-  <!--end::dependencies[]-->
+  <!-- end::dependencies[] -->
 
   <build>
     <defaultGoal>clean package</defaultGoal>
