@@ -64,6 +64,12 @@ include::../build.gradle[tags=dependencies]
 
 === configure thymeleaf
 
+.configure template resolver and template engine
+[source,java]
+----
+include::../src/main/java/daggerok/thymeleafmvc/ThymeleafProducer.java[tags=content]
+----
+
 .configure Thymeleaf view resolver
 [source,java]
 ----
