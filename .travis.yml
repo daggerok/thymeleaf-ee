@@ -28,11 +28,11 @@ install: true
 before_install:
 - docker-compose -v
 - export PATH=$HOME/.local/bin:$PATH
-- echo $(which pip3)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
 - $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
-- echo $(which pip3)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
 - $(which pip3) install --user $(whoami) --upgrade pip >/dev/null
-- echo $(which pip3)
+- echo "pip3 location $(which pip3) and pip3 version $($(which pip3) -V)
 - $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
 - http --version
 - docker-compose -v
