@@ -547,7 +547,7 @@ table.CodeRay td.code>pre{padding:0}
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
 <span id="revnumber">version 0.0.2,</span>
-<span id="revdate">2019-09-18 21:39:21 UTC</span>
+<span id="revdate">2019-09-18 22:49:37 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -688,44 +688,63 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="sect2">
 <h3 id="configure-thymeleaf"><a class="anchor" href="#configure-thymeleaf"></a>2.3. configure thymeleaf</h3>
 <div class="listingblock">
+<div class="title">configure template resolver and template engine</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ApplicationScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ThymeleafProducer</span> {
+
+  <span class="annotation">@Produces</span>
+  <span class="annotation">@Singleton</span>
+  <span class="directive">private</span> ServletContextTemplateResolver servletContextTemplateResolver(ServletContext servletContext) {
+    <span class="comment">// log.debug(&quot;producing lazy template resolver...&quot;);</span>
+    val resolver = <span class="keyword">new</span> ServletContextTemplateResolver(servletContext);
+    resolver.setPrefix(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/layouts/</span><span class="delimiter">&quot;</span></span>);
+    resolver.setSuffix(<span class="string"><span class="delimiter">&quot;</span><span class="content">.html</span><span class="delimiter">&quot;</span></span>);
+    resolver.setTemplateMode(TemplateMode.HTML);
+    resolver.setCacheable(<span class="predefined-constant">false</span>);
+    <span class="keyword">return</span> resolver;
+  }
+
+  <span class="annotation">@Produces</span>
+  <span class="annotation">@Singleton</span>
+  <span class="directive">public</span> TemplateEngine templateEngine(ServletContextTemplateResolver resolver) {
+    <span class="comment">// log.debug(&quot;producing lazy template engine...&quot;);</span>
+    TemplateEngine templateEngine = <span class="keyword">new</span> TemplateEngine();
+    templateEngine.setTemplateResolver(resolver);
+    <span class="keyword">return</span> templateEngine;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
 <div class="title">configure Thymeleaf view resolver</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Slf4j</span>
-<span class="annotation">@ApplicationScoped</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@ApplicationScoped</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">ThymeleafViewEngine</span> <span class="directive">extends</span> ViewEngineBase {
 
-  <span class="annotation">@Inject</span> ServletContext servletContext;
-  TemplateEngine engine;
+  <span class="annotation">@Inject</span>
+  <span class="directive">private</span> ServletContext servletContext;
+
+  <span class="annotation">@Inject</span>
+  <span class="directive">private</span> TemplateEngine templateEngine;
 
   <span class="annotation">@Override</span>
   <span class="directive">public</span> <span class="type">boolean</span> supports(<span class="directive">final</span> <span class="predefined-type">String</span> view) {
     <span class="keyword">return</span> !view.contains(<span class="string"><span class="delimiter">&quot;</span><span class="content">.</span><span class="delimiter">&quot;</span></span>);
   }
 
-  <span class="annotation">@PostConstruct</span>
-  <span class="directive">public</span> <span class="type">void</span> postConstruct() {
-    <span class="directive">final</span> ServletContextTemplateResolver resolver = <span class="keyword">new</span> ServletContextTemplateResolver(servletContext);
-    resolver.setPrefix(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/layouts/</span><span class="delimiter">&quot;</span></span>);
-    resolver.setSuffix(<span class="string"><span class="delimiter">&quot;</span><span class="content">.html</span><span class="delimiter">&quot;</span></span>);
-    resolver.setTemplateMode(TemplateMode.HTML);
-    resolver.setCacheable(<span class="predefined-constant">false</span>);
-    engine = <span class="keyword">new</span> TemplateEngine();
-    engine.setTemplateResolver(resolver);
-  }
-
   <span class="annotation">@Override</span>
   <span class="directive">public</span> <span class="type">void</span> processView(ViewEngineContext context) <span class="directive">throws</span> ViewEngineException {
-    Try.run(() -&gt; {
 
-      <span class="directive">final</span> HttpServletRequest request = context.getRequest();
-      <span class="directive">final</span> HttpServletResponse response = context.getResponse();
-      <span class="directive">final</span> WebContext webContext = <span class="keyword">new</span> WebContext(request, response, servletContext, request.getLocale());
+    HttpServletRequest req = context.getRequest();
+    HttpServletResponse res = context.getResponse();
 
-      webContext.setVariables(context.getModels());
-      request.setAttribute(<span class="string"><span class="delimiter">&quot;</span><span class="content">view</span><span class="delimiter">&quot;</span></span>, context.getView());
-      engine.process(<span class="comment">/*default layout*/</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>, webContext, response.getWriter());
-
-    }).getOrElseThrow(ViewEngineException::<span class="keyword">new</span>);
+    Try.of(() -&gt; <span class="keyword">new</span> WebContext(req, res, servletContext, req.getLocale()))
+       .andThenTry(webContext -&gt; webContext.setVariables(context.getModels()))
+       .andThenTry(() -&gt; req.setAttribute(<span class="string"><span class="delimiter">&quot;</span><span class="content">view</span><span class="delimiter">&quot;</span></span>, context.getView()))
+       .andThenTry(webContext -&gt; templateEngine.process(
+               <span class="comment">/*default layout*/</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>, webContext, res.getWriter()))
+       .getOrElseThrow(ViewEngineException::<span class="keyword">new</span>);
   }
 }</code></pre>
 </div>
@@ -918,7 +937,7 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.2<br>
-Last updated 2019-09-18 21:39:21 UTC
+Last updated 2019-09-18 22:49:37 UTC
 </div>
 </div>
 </body>
