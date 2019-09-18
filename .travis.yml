@@ -29,6 +29,7 @@ before_install:
 - docker-compose -v
 - export PATH=$HOME/.local/bin:$PATH
 - echo $(which pip3) && $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
+- echo $(which pip3) && $(which pip3) install --user $(whoami) --upgrade pip >/dev/null # pip3 -> pip
 - echo $(which pip3) && $(which pip3) install --user $(whoami) --upgrade docker-compose httpie >/dev/null
 - http --version
 - docker-compose -v
