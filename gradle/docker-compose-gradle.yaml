@@ -13,6 +13,7 @@ services:
     volumes: ["gradle-thymeleaf-ee-app-data:/home/appuser"]
     ports: ["5005:5005",
             "8080:8080",
+            #"8443:8443",
             "9990:9990",]
     networks:
       public-net:

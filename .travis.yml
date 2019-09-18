@@ -50,7 +50,7 @@ jobs:
     script:
     - ./mvnw
     - ./mvnw -Pdocker docker-compose:up
-    - docker logs -f mvn_thymeleaf-ee-app_1 &
+    - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
     - http :8080/app/api/health
     - http :8080/app/api/
@@ -62,7 +62,7 @@ jobs:
     script:
     - ./mvnw
     - ./mvnw -Pdocker docker-compose:up
-    - docker logs -f mvn_thymeleaf-ee-app_1 &
+    - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - while [[ $(docker ps -lqf health=healthy | wc -l) -lt 1 ]] ; do echo -ne '.' ; sleep 3s ; done
     - http :8080/app/api/health
     - http :8080/app/api/
@@ -72,8 +72,7 @@ jobs:
     jdk: openjdk8
     name: jdk8 gradle integration test
     script:
-    - ./gradlew
-    - ./gradlew composeUp
+    - ./gradlew clean composeUp
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
     - http :8080/app/api/
@@ -84,7 +83,7 @@ jobs:
     jdk: openjdk11
     name: jdk11 gradle integration test
     script:
-    - ./gradlew clean build composeUp
+    - ./gradlew clean composeUp
     - docker logs -f thymeleaf-ee_thymeleaf-ee-app_1 &
     - http :8080/app/
     - http :8080/app/api/

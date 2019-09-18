@@ -342,6 +342,7 @@
               </execution>
             </executions>
             <configuration>
+              <projectName>thymeleaf-ee</projectName>
               <composeFile>${project.basedir}/.mvn/docker-compose-maven.yaml</composeFile>
               <detachedMode>true</detachedMode>
               <removeVolumes>true</removeVolumes>
