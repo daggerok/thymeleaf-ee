@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Maksim Kostromin">
-<title>thymeleaf-ee (0.0.1)</title>
+<title>thymeleaf-ee (0.0.2)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -542,12 +542,12 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="book toc2 toc-left">
 <div id="header">
-<h1>thymeleaf-ee (0.0.1)</h1>
+<h1>thymeleaf-ee (0.0.2)</h1>
 <div class="details">
 <span id="author" class="author">Maksim Kostromin</span><br>
 <span id="email" class="email"><a href="mailto:daggerok@gmail.com">daggerok@gmail.com</a></span><br>
-<span id="revnumber">version 0.0.1,</span>
-<span id="revdate">2018-06-28 22:55:44 UTC</span>
+<span id="revnumber">version 0.0.2,</span>
+<span id="revdate">2019-09-18 21:13:47 UTC</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -625,17 +625,17 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>javax.mvc<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>javax.mvc-api<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>1.0-pr<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${javax.mvc-api.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.mvc-spec.ozark<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>ozark-resteasy<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>1.0.0-m03<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${ozark-resteasy.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.mvc-spec.ozark.ext<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>ozark-thymeleaf<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>1.0.0-m03<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${ozark-thymeleaf.version}<span class="tag">&lt;/version&gt;</span>
       <span class="tag">&lt;exclusions&gt;</span>
         <span class="tag">&lt;exclusion&gt;</span>
           <span class="tag">&lt;groupId&gt;</span>org.thymeleaf<span class="tag">&lt;/groupId&gt;</span>
@@ -646,22 +646,22 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.thymeleaf<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>thymeleaf<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>3.0.9.RELEASE<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${thymeleaf.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>material-design-icons<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>3.0.1<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${material-design-icons.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>jquery<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>3.3.1-1<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${jquery.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
     <span class="tag">&lt;dependency&gt;</span>
       <span class="tag">&lt;groupId&gt;</span>org.webjars<span class="tag">&lt;/groupId&gt;</span>
       <span class="tag">&lt;artifactId&gt;</span>materializecss<span class="tag">&lt;/artifactId&gt;</span>
-      <span class="tag">&lt;version&gt;</span>0.100.2<span class="tag">&lt;/version&gt;</span>
+      <span class="tag">&lt;version&gt;</span>${materializecss.version}<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;/dependency&gt;</span>
   <span class="tag">&lt;/dependencies&gt;</span></code></pre>
 </div>
@@ -671,17 +671,15 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">allprojects {
   dependencies {
-
-    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.webjars:jquery:3.3.1-1</span><span class="delimiter">'</span></span>
     implementation <span class="string"><span class="delimiter">'</span><span class="content">org.webjars:material-design-icons:3.0.1</span><span class="delimiter">'</span></span>
-    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.webjars:materializecss:0.100.2</span><span class="delimiter">'</span></span>
+    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.webjars:materializecss:1.0.0</span><span class="delimiter">'</span></span>
 
     implementation <span class="string"><span class="delimiter">'</span><span class="content">javax.mvc:javax.mvc-api:1.0-pr</span><span class="delimiter">'</span></span>
-    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.mvc-spec.ozark:ozark-resteasy:1.0.0-m03</span><span class="delimiter">'</span></span>
-    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.mvc-spec.ozark.ext:ozark-thymeleaf:1.0.0-m03</span><span class="delimiter">'</span></span>, {
+    implementation <span class="string"><span class="delimiter">&quot;</span><span class="content">org.mvc-spec.ozark:ozark-resteasy:</span><span class="inline"><span class="inline-delimiter">$</span>ozarkVersion</span><span class="delimiter">&quot;</span></span>
+    implementation <span class="string"><span class="delimiter">&quot;</span><span class="content">org.mvc-spec.ozark.ext:ozark-thymeleaf:</span><span class="inline"><span class="inline-delimiter">$</span>ozarkVersion</span><span class="delimiter">&quot;</span></span>, {
       exclude <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">org.thymeleaf</span><span class="delimiter">'</span></span>, <span class="key">module</span>: <span class="string"><span class="delimiter">'</span><span class="content">thymeleaf</span><span class="delimiter">'</span></span>
     }
-    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.thymeleaf:thymeleaf:3.0.9.RELEASE</span><span class="delimiter">'</span></span>
+    implementation <span class="string"><span class="delimiter">'</span><span class="content">org.thymeleaf:thymeleaf:3.0.11.RELEASE</span><span class="delimiter">'</span></span>
   }
 }</code></pre>
 </div>
@@ -738,8 +736,9 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="listingblock">
 <div class="title"><code>StaticResourcesResource.java</code> file:</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
-<span class="annotation">@Stateless</span>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Slf4j</span>
+<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@RequestScoped</span>
 <span class="directive">public</span> <span class="type">class</span> <span class="class">StaticResourcesResource</span> {
 
   <span class="annotation">@Inject</span> ServletContext context;
@@ -753,11 +752,10 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
   <span class="annotation">@GET</span>
   <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^webjars</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
   <span class="directive">public</span> Response webjars(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
-
-    <span class="directive">final</span> <span class="predefined-type">String</span> absolutePath = format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/META-INF/resources/%s</span><span class="delimiter">&quot;</span></span>, path);
-    <span class="directive">final</span> <span class="predefined-type">InputStream</span> resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
-
-    <span class="keyword">return</span> <span class="predefined-constant">null</span> == resource
+    log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">handling webjars: '{}'</span><span class="delimiter">&quot;</span></span>, path);
+    <span class="predefined-type">String</span> absolutePath = format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/META-INF/resources/%s</span><span class="delimiter">&quot;</span></span>, path);
+    <span class="predefined-type">InputStream</span> resource = getClass().getClassLoader().getResourceAsStream(absolutePath);
+    <span class="keyword">return</span> Objects.isNull(resource)
         ? Response.status(NOT_FOUND).build()
         : Response.ok().entity(resource).build();
   }
@@ -774,9 +772,8 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
   <span class="annotation">@GET</span>
   <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{path: ^(assets|public|static|resources)</span><span class="char">\\</span><span class="content">/.*}</span><span class="delimiter">&quot;</span></span>)
   <span class="directive">public</span> Response staticResources(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">path</span><span class="delimiter">&quot;</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> path) {
-
-    <span class="directive">final</span> <span class="predefined-type">InputStream</span> resource = context.getResourceAsStream(format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/%s</span><span class="delimiter">&quot;</span></span>, path));
-
+    log.debug(<span class="string"><span class="delimiter">&quot;</span><span class="content">handling assets: '{}'</span><span class="delimiter">&quot;</span></span>, path);
+    <span class="predefined-type">InputStream</span> resource = context.getResourceAsStream(format(<span class="string"><span class="delimiter">&quot;</span><span class="content">/WEB-INF/%s</span><span class="delimiter">&quot;</span></span>, path));
     <span class="keyword">return</span> <span class="predefined-constant">null</span> == resource
         ? Response.status(NOT_FOUND).build()
         : Response.ok().entity(resource).build();
@@ -826,8 +823,8 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
   <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">icon</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">image/x-icon</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/assets/favicon.ico}</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
   <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/css</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/material-design-icons/3.0.1/material-icons.css}</span><span class="delimiter">&quot;</span></span>
         <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/material-design-icons/3.0.1/material-icons.css</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-  <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/css</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/materializecss/0.100.2/css/materialize.min.css}</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/materializecss/0.100.2/css/materialize.css</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/css</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/materializecss/1.0.0/css/materialize.min.css}</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/materializecss/1.0.0/css/materialize.css</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
   <span class="tag">&lt;link</span> <span class="attribute-name">rel</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">stylesheet</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/css</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/assets/styles.css}</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
   <span class="comment">&lt;!-- custom styles will be added here...--&gt;</span>
   <span class="tag">&lt;th:block</span> <span class="attribute-name">th:include</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">${view} :: header</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
@@ -842,10 +839,8 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <span class="comment">&lt;!-- custom view specific stuff: --&gt;</span>
 <span class="tag">&lt;div</span> <span class="attribute-name">th:replace</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">${view} :: content</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>
 
-<span class="tag">&lt;script</span> <span class="attribute-name">th:src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/jquery/3.3.1-1/jquery.min.js}</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/jquery/3.3.1-1/jquery.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
-<span class="tag">&lt;script</span> <span class="attribute-name">th:src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/materializecss/0.100.2/js/materialize.min.js}</span><span class="delimiter">&quot;</span></span>
-        <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/materializecss/0.100.2/js/materialize.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> <span class="attribute-name">th:src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/webjars/materializecss/1.0.0/js/materialize.min.js}</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/webjars/materializecss/1.0.0/js/materialize.js</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
 <span class="tag">&lt;script</span> <span class="attribute-name">th:src</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">@{/assets/scripts.js}</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/script&gt;</span>
 <span class="comment">&lt;!-- custom scripts will be added here...--&gt;</span>
 <span class="tag">&lt;th:block</span> <span class="attribute-name">th:include</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">${view} :: footer</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
@@ -860,7 +855,9 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 <div class="title">Thymeleaf index view template (file <code>src/main/resources/webapp/WEB-INF/layouts/index.html</code>):</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="html"><span class="doctype">&lt;!DOCTYPE html&gt;</span>
-<span class="tag">&lt;html</span> <span class="attribute-name">lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/1999/xhtml</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">xmlns:th</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.thymeleaf.org</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="tag">&lt;html</span> <span class="attribute-name">lang</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">en</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">xmlns:th</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.thymeleaf.org</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http://www.w3.org/1999/xhtml</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 <span class="tag">&lt;head&gt;</span>
   <span class="tag">&lt;title&gt;</span>Hello | Thymeleaf EE<span class="tag">&lt;/title&gt;</span>
   <span class="tag">&lt;div</span> <span class="attribute-name">th:fragment</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">header</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">th:remove</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">tag</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -921,8 +918,8 @@ yo jvm -t java-ee -n thymeleaf-ee</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0.1<br>
-Last updated 2018-06-28 22:55:44 UTC
+Version 0.0.2<br>
+Last updated 2019-09-18 21:13:47 UTC
 </div>
 </div>
 </body>
