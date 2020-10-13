@@ -22,7 +22,7 @@
     <lombok.version>1.18.10</lombok.version>
     <jquery.version>3.4.1</jquery.version>
     <slf4j.version>2.0.0-alpha0</slf4j.version>
-    <junit4.version>4.13-beta-3</junit4.version>
+    <junit4.version>4.13.1</junit4.version>
     <javax.json.version>1.1.4</javax.json.version>
     <junit-jupiter.version>5.5.2</junit-jupiter.version>
     <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
