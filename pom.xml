@@ -15,7 +15,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <h2.version>1.4.199</h2.version>
+    <h2.version>2.1.210</h2.version>
     <vavr.version>0.10.2</vavr.version>
     <javaee.version>8.0.1</javaee.version>
     <jgiven.version>0.18.2</jgiven.version>
